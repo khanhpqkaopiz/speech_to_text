@@ -391,6 +391,10 @@ public class SpeechToTextPlugin :
                         recognizer?.destroy()
                     }
                 })
+            } else {
+                // If on-device recognition is not available
+                debugLog("On-device recognition not available.")
+                result.success(false)
             }
         } else {
             var detailsIntent = RecognizerIntent.getVoiceDetailsIntent(pluginContext)
@@ -435,7 +439,7 @@ public class SpeechToTextPlugin :
             activeBluetooth = null
         }
     }
-    
+
     private fun updateResults(speechBundle: Bundle?, isFinal: Boolean) {
         if (isDuplicateFinal( isFinal )) {
             debugLog("Discarding duplicate final")
